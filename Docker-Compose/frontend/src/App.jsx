@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react'
-import axios from "axios"
+import { useState, useEffect, use } from 'react'
+import axios from 'axios'
+
+import './App.css'
 
 function App() {
-  const [users, setUsers] = useState([])
 
+  const [ users, setUsers ] = useState([]);
   useEffect(() => {
-    axios.get("/api/users")
-      .then(response => {
-        setUsers(response.data)
-      })
-      .catch(error => {
-        console.error("Failed to fetch users:", error)
-      })
-  }, [])
+    axios.get('/api/users')
+    .then(response=>{
+      setUsers(response.data)
+    })
+  }, []);
 
   return (
     <div className="app">
       <h1>Users</h1>
-      {users.map(user => (
-        <li key={user.id}>{user.name}</li>
-      ))}
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
     </div>
   )
 }
