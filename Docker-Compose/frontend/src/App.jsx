@@ -2,19 +2,22 @@ import { useState, useEffect } from 'react'
 import axios from "axios"
 
 function App() {
-  const [user, setuser] = useState([])
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     axios.get("/api/users")
-      .then(respose => {
-        setuser(respose.data)
+      .then(response => {
+        setUsers(response.data)
+      })
+      .catch(error => {
+        console.error("Failed to fetch users:", error)
       })
   }, [])
 
   return (
     <div className="app">
-      <h1>User</h1>
-      {user.map(user => (
+      <h1>Users</h1>
+      {users.map(user => (
         <li key={user.id}>{user.name}</li>
       ))}
     </div>
