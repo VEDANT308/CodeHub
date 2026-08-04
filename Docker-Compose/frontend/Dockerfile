@@ -8,4 +8,8 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run","dev"]
+# Entrypoint ensures node_modules in the named volume stay in sync
+# with package.json from the bind mount.
+ENTRYPOINT ["sh", "-c", "npm install && exec \"$@\"", "--"]
+
+CMD ["npm", "run", "dev"]
